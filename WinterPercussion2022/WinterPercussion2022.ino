@@ -3,6 +3,7 @@
    Abstract:
  Change Log:  20-jan-2022 Created.
               01-feb-2022 Changed pins for DIR && PUL to be closer for connectors
+              31-mar-2022 Mark changed direction and speed.
 
 
 */
