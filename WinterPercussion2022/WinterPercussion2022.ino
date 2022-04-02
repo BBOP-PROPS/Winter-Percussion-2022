@@ -60,14 +60,14 @@ void loop() {
  // Different props may need different distances based on thickness of the cloth
    //LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
   // Run to target position with set speed and acceleration/deceleration:
-  if (digitalRead(downOverride) == 0 || digitalRead(recD0) == HIGH) { 
+  if (digitalRead(downOverride) == 0 || digitalRead(recD2) == HIGH) { 
         println ("Roll Down Fabric");
         stepper.setMaxSpeed(7500); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
         stepper.setAcceleration(10000);
         stepper.moveTo(-42000); 
       } 
 
-  if (digitalRead(upOverride) == 0 || digitalRead(recD1) == HIGH) {  //
+  if (digitalRead(upOverride) == 0 || digitalRead(recD3) == HIGH) {  //
         println ("Roll-up Fabric");
         stepper.setAcceleration(300);
         stepper.setMaxSpeed(2000); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
