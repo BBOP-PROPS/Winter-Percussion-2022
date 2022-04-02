@@ -8,7 +8,7 @@
 
 */
 
-//#define __DEBUG__
+#define __DEBUG__
 #ifdef __DEBUG__
    #define print(...)   Serial.print(__VA_ARGS__)
    #define println(...) Serial.println(__VA_ARGS__)
@@ -46,7 +46,7 @@ AccelStepper stepper = AccelStepper(motorInterfaceType, stepPin, dirPin);
 
 void setup() {
   // Set the maximum speed and acceleration:
-  
+  pinMode(LED_BUILTIN,OUTPUT);
   pinMode(downOverride, INPUT_PULLUP); 
   pinMode(upOverride, INPUT_PULLUP);
   #ifdef __DEBUG__
@@ -56,18 +56,22 @@ void setup() {
 }
 
 void loop() {
+  
 
  // Different props may need different distances based on thickness of the cloth
    //LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
   // Run to target position with set speed and acceleration/deceleration:
-  if (digitalRead(downOverride) == 0 || digitalRead(recD2) == HIGH) { 
+  if (digitalRead(downOverride) == 0 ) {   //|| digitalRead(recD2) == HIGH) { 
+        digitalWrite(LED_BUILTIN, HIGH);
+        println ("Waiting 55 Seconds");
+        delay(55000);
         println ("Roll Down Fabric");
         stepper.setMaxSpeed(7500); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
         stepper.setAcceleration(10000);
         stepper.moveTo(-42000); 
       } 
 
-  if (digitalRead(upOverride) == 0 || digitalRead(recD3) == HIGH) {  //
+  if (digitalRead(upOverride) == 0 ) { // || digitalRead(recD3) == HIGH) {  //
         println ("Roll-up Fabric");
         stepper.setAcceleration(300);
         stepper.setMaxSpeed(2000); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
@@ -76,5 +80,6 @@ void loop() {
       
   println("Execute.");    
   stepper.runToPosition();
+  digitalWrite(LED_BUILTIN, LOW);
 
 }
