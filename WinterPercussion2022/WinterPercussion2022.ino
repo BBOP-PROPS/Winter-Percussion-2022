@@ -8,7 +8,7 @@
 
 */
 
-#define __DEBUG__
+//#define __DEBUG__
 #ifdef __DEBUG__
    #define print(...)   Serial.print(__VA_ARGS__)
    #define println(...) Serial.println(__VA_ARGS__)
@@ -58,10 +58,12 @@ void setup() {
 void loop() {
   
 
- // Different props may need different distances based on thickness of the cloth
-   //LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
+  // Different props may need different distances based on thickness of the cloth
   // Run to target position with set speed and acceleration/deceleration:
-  if (digitalRead(downOverride) == 0 ) {   //|| digitalRead(recD2) == HIGH) { 
+  // If you want buttons or wireless:
+  // if (digitalRead(downOverride) == 0 ) || digitalRead(recD2) == HIGH) { 
+ 
+  if (digitalRead(downOverride) == 0 ) { 
         digitalWrite(LED_BUILTIN, HIGH);
         println ("Waiting 55 Seconds");
         delay(55000);
@@ -70,15 +72,17 @@ void loop() {
         stepper.setAcceleration(10000);
         stepper.moveTo(-42000); 
       } 
-
-  if (digitalRead(upOverride) == 0 ) { // || digitalRead(recD3) == HIGH) {  //
+      
+  // Both Buttons and Wireless:
+  // if (digitalRead(upOverride) == 0 )  || digitalRead(recD3) == HIGH) {  
+ 
+  if (digitalRead(upOverride) == 0 ) { 
         println ("Roll-up Fabric");
         stepper.setAcceleration(300);
         stepper.setMaxSpeed(2000); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
         stepper.moveTo(0); 
       } 
       
-  println("Execute.");    
   stepper.runToPosition();
   digitalWrite(LED_BUILTIN, LOW);
 
