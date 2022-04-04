@@ -114,6 +114,7 @@ void loop() {
         stepper.setAcceleration(100000);
         stepper.moveTo(homePos);
         stepper.runToPosition();
+        stepper.setCurrentPosition(0);
 
       } 
       
