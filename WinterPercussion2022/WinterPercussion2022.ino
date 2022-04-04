@@ -8,7 +8,7 @@
 
 */
 
-//#define __DEBUG__
+#define __DEBUG__
 #ifdef __DEBUG__
    #define print(...)   Serial.print(__VA_ARGS__)
    #define println(...) Serial.println(__VA_ARGS__)
@@ -41,6 +41,9 @@
 #define returnPin 11  
 #define motorInterfaceType 1
 
+int homePos = 0;
+int tmp = 0;
+
 // Create a new instance of the AccelStepper class:
 AccelStepper stepper = AccelStepper(motorInterfaceType, stepPin, dirPin);
 
@@ -64,26 +67,57 @@ void loop() {
   // if (digitalRead(downOverride) == 0 ) || digitalRead(recD2) == HIGH) { 
  
   if (digitalRead(downOverride) == 0 ) { 
+        println("Rolldown pressed");
         digitalWrite(LED_BUILTIN, HIGH);
-        println ("Waiting 55 Seconds");
-        delay(55000);
-        println ("Roll Down Fabric");
-        stepper.setMaxSpeed(7500); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
-        stepper.setAcceleration(10000);
-        stepper.moveTo(-42000); 
+        println("Waiting 3 seconds to enter manual mode...");
+        delay(3000);
+              if (digitalRead(downOverride) == 0 )     
+              {      
+               while (digitalRead(downOverride) == 0) {
+                  homePos=tmp;
+                  println(" Entering Manual Rolldown Mode");
+                  digitalWrite(LED_BUILTIN, LOW); 
+                  tmp = tmp - 1500;
+                  print("Value: ");
+                  println(tmp);
+                  stepper.setMaxSpeed(7500);
+                  stepper.setAcceleration(100000);
+                  stepper.moveTo(tmp);
+                  stepper.runToPosition();
+                  
+               }
+               homePos=tmp;
+              } else { 
+                    println ("Waiting 52 more Seconds");
+                    delay (52000);
+                    println ("Roll Down Fabric");
+                    stepper.setMaxSpeed(7500); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
+                    stepper.setAcceleration(10000);
+                    stepper.moveTo(-42000); 
+                    stepper.runToPosition();
+                    delay(1000);
+                    stepper.moveTo(homePos);
+                    stepper.runToPosition();
+              }
       } 
       
   // Both Buttons and Wireless:
   // if (digitalRead(upOverride) == 0 )  || digitalRead(recD3) == HIGH) {  
  
   if (digitalRead(upOverride) == 0 ) { 
+        tmp=homePos;
+         homePos = homePos + 1500;
         println ("Roll-up Fabric");
-        stepper.setAcceleration(300);
-        stepper.setMaxSpeed(2000); // 600 = 12s ;  800 = 10 sec; 1000= 8 sec
-        stepper.moveTo(0); 
+        print("Value: ");
+        println(homePos);
+        stepper.setMaxSpeed(7500);
+        stepper.setAcceleration(100000);
+        stepper.moveTo(homePos);
+        stepper.runToPosition();
+
       } 
       
-  stepper.runToPosition();
+  //stepper.runToPosition();
   digitalWrite(LED_BUILTIN, LOW);
 
 }
