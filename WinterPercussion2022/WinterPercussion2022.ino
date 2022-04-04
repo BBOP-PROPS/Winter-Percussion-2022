@@ -95,7 +95,7 @@ void loop() {
                     stepper.setAcceleration(10000);
                     stepper.moveTo(-42000); 
                     stepper.runToPosition();
-                    delay(1000);
+                    delay(38000);
                     stepper.moveTo(homePos);
                     stepper.runToPosition();
               }
