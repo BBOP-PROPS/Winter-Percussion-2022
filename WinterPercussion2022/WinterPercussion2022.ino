@@ -1,12 +1,4 @@
-/*
 
-   Abstract:
- Change Log:  20-jan-2022 Created.
-              01-feb-2022 Changed pins for DIR && PUL to be closer for connectors
-              31-mar-2022 Mark changed direction and speed.
-
-
-*/
 
 //#define __DEBUG__
 #ifdef __DEBUG__
@@ -18,7 +10,6 @@
 #endif
 
 
-//#include <LowPower.h>
 #include <AccelStepper.h>
 
 
@@ -57,44 +48,42 @@ void setup() {
 }
 
 void loop() {
-  
-
-  // Different props may need different distances based on thickness of the cloth
-  // Run to target position with set speed and acceleration/deceleration:
-  // If you want buttons or wireless:
-  // if (digitalRead(downOverride) == 0 ) || digitalRead(recD2) == HIGH) { 
- 
-  if (digitalRead(downOverride) == 0 ) { 
+    if (digitalRead(downOverride) == 0 ) 
+      { 
         println("Rolldown pressed");
         digitalWrite(LED_BUILTIN, HIGH);
         println("Waiting 3 seconds to enter manual mode...");
         delay(3000);
               if (digitalRead(downOverride) == 0 )     
               {      
-               while (digitalRead(downOverride) == 0) {
-                  println(" Entering Manual Rolldown Mode");
-                  digitalWrite(LED_BUILTIN, LOW);     
-                 stepper.setSpeed(1000);
-                 stepper.runSpeed();  
-               }
-              } else { 
+                   while (digitalRead(downOverride) == 0) 
+                   {
+                      println(" Entering Manual Rolldown Mode");
+                      digitalWrite(LED_BUILTIN, LOW);     
+                     stepper.setSpeed(1000);
+                     stepper.runSpeed();  
+                   }
+              } 
+              else 
+              { 
+                    println("Bypassed manual mode...");
                     println ("Waiting 52 more Seconds");
                     delay (52000);
                     println ("Roll Down Fabric");
                     stepper.setAcceleration(10000);
                     stepper.moveTo(42000); 
                     stepper.runToPosition();
+                    println("Waiting 38 seconds to roll back up.  Show's over...");
                     delay(38000);
+                    println("Moving motor home");
                     stepper.moveTo(0);
                     stepper.runToPosition();
               }
       } 
-      
-  // Both Buttons and Wireless:
-  // if (digitalRead(upOverride) == 0 )  || digitalRead(recD3) == HIGH) {  
  
-  if (digitalRead(upOverride) == 0 ) { 
-        println ("Roll-up Fabric");
+  if (digitalRead(upOverride) == 0 ) 
+      { 
+        println ("Roll-up Fabric pressed");
         stepper.setSpeed(-2000);
         stepper.runSpeed();  
         stepper.setCurrentPosition(0);
