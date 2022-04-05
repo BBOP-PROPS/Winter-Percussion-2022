@@ -82,7 +82,7 @@ void loop() {
                     delay (52000);
                     println ("Roll Down Fabric");
                     stepper.setAcceleration(10000);
-                    stepper.moveTo(-42000); 
+                    stepper.moveTo(42000); 
                     stepper.runToPosition();
                     delay(38000);
                     stepper.moveTo(0);
@@ -95,7 +95,7 @@ void loop() {
  
   if (digitalRead(upOverride) == 0 ) { 
         println ("Roll-up Fabric");
-        stepper.setSpeed(-1000);
+        stepper.setSpeed(-2000);
         stepper.runSpeed();  
         stepper.setCurrentPosition(0);
       } 
