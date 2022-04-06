@@ -25,7 +25,6 @@
 #define stepPin 7       // PUL+
 #define downOverride 6
 #define upOverride 8
-#define returnPin 11  
 #define motorInterfaceType 1
 
 
