@@ -59,7 +59,7 @@ void loop() {
                    {
                       println(" Entering Manual Rolldown Mode");
                       digitalWrite(LED_BUILTIN, LOW);     
-                     stepper.setSpeed(1000);
+                     stepper.setSpeed(-1000);
                      stepper.runSpeed();  
                    }
               } 
@@ -70,7 +70,7 @@ void loop() {
                     delay (52000);
                     println ("Roll Down Fabric");
                     stepper.setAcceleration(10000);
-                    stepper.moveTo(42000); 
+                    stepper.moveTo(-42000); 
                     stepper.runToPosition();
                     println("Waiting 38 seconds to roll back up.  Show's over...");
                     delay(38000);
@@ -83,7 +83,7 @@ void loop() {
   if (digitalRead(upOverride) == 0 ) 
       { 
         println ("Roll-up Fabric pressed");
-        stepper.setSpeed(-2000);
+        stepper.setSpeed(2000);
         stepper.runSpeed();  
         stepper.setCurrentPosition(0);
       } 
