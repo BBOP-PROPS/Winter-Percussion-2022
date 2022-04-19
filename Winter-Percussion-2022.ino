@@ -70,13 +70,15 @@ void loop() {
                     delay (52000);
                     println ("Roll Down Fabric");
                     stepper.setAcceleration(10000);
-                    stepper.moveTo(-42000); 
+                    stepper.moveTo(-41000); 
                     stepper.runToPosition();
-                    println("Waiting 38 seconds to roll back up.  Show's over...");
-                    delay(38000);
-                    println("Moving motor home");
-                    stepper.moveTo(0);
-                    stepper.runToPosition();
+                      // println("Waiting 38 seconds to roll back up.  Show's over...");
+                      // stepper.setAcceleration(2000);
+                      // //stepper.setSpeed(1500);
+                      // delay(13000);
+                      // println("Moving motor home");
+                      // stepper.moveTo(0);
+                      // stepper.runToPosition();
               }
       } 
  
